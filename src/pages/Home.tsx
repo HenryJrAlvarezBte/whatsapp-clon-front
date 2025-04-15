@@ -12,7 +12,7 @@ const Home = () => {
 	};
 
 	return (
-		<div>
+		<div className="text-white">
 			<Container>
 				<h1>Whatsapp</h1>
 				{user ? (

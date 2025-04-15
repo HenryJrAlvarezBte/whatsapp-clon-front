@@ -1,8 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../config/firebase';
 import {
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
+	signInWithEmailAndPassword,
+	signOut,
+	User,
 } from 'firebase/auth';
 
 interface AuthContextType {
@@ -12,7 +15,7 @@ interface AuthContextType {
 	logout: () => Promise<void>;
 }
 
-const authContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
@@ -23,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	}, []);
 
 	const login = async (email: string, password: string) => {
-		await signInWidthEmailAndPassword(auth, email, password);
+		await signInWithEmailAndPassword(auth, email, password);
 	};
 
 	const register = async (email: string, password: string) => {
