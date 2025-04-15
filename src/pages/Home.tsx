@@ -1,18 +1,54 @@
-import { Button } from "react-bootstrap"
-
+import { Button, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
-  return (
-    <div>
-      <h1>Whatsapp</h1>
-      <Button variant="primary">
-        Iniciar sesion
-      </Button>
-      <Button variant="secondary">
-        Registrarse
-      </Button>
-    </div>
-  )
-}
+	const { user, logout } = useAuth();
+	const navigate = useNavigate();
 
-export default Home
+	const handleLogout = async () => {
+		await logout();
+		navigate('/login');
+	};
+
+	return (
+		<div>
+			<Container>
+				<h1>Whatsapp</h1>
+				{user ? (
+					<>
+						<p>Bienvenido, {user.email}</p>
+						<Button variant="danger" onClick={handleLogout}>
+							Cerrar sesión
+						</Button>
+					</>
+				) : (
+					<>
+						<Button variant="primary" onClick={() => navigate('/login')}>
+							Iniciar sesión
+						</Button>
+						<Button variant="secondary" onClick={() => navigate('/register')}>
+							Registrarse
+						</Button>
+					</>
+				)}
+				<Button
+					variant="primary"
+					className="m-2"
+					onClick={() => navigate('/login')}
+				>
+					Iniciar sesion
+				</Button>
+				<Button
+					variant="secondary"
+					className="m-2"
+					onClick={() => navigate('/register')}
+				>
+					Registrarse
+				</Button>
+			</Container>
+		</div>
+	);
+};
+
+export default Home;
