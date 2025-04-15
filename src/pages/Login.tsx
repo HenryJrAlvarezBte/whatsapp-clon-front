@@ -20,7 +20,7 @@ const Login = () => {
 		}
 	};
 	return (
-		<Container className="d-flex justify-content-center align-items-center">
+		<Container className="d-flex justify-content-center align-items-center text-white">
 			<h2 className="text-center mb-4">Iniciar sesión</h2>
 			<Form onSubmit={handleSubmit} className="mt-3">
 				<Form.Group controlId="formEmail">
